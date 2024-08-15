@@ -10,12 +10,3 @@ bot.commands = new Discord.Collection();
 bot.login(config.token);
 loadCommands(bot);
 loadEvents(bot);
-
-bot.on("messageCreate", async (message) => {
-  if (message.content === "!ping")
-    return bot.commands.get("ping").run(bot, message);
-});
-
-bot.on("ready", async () => {
-  console.log(`${bot.user.tag} Viens de ce connecter`);
-});

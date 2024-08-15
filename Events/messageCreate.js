@@ -1,7 +1,5 @@
 const Discord = require("discord.js");
-const client = new Client({
-  intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILDS_MESSAGE],
-});
+const client = new Client();
 
 module.exports = async (bot, message) => {
   console.log("event MessageCreate Envoyé");
