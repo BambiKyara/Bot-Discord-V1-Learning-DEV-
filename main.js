@@ -3,7 +3,7 @@ const intents = new Discord.IntentsBitField(53608447);
 const bot = new Discord.Client({ intents });
 const loadCommands = require("./Loader/loadCommands");
 const loadEvents = require("./Loader/loadEvents");
-const config = require("./config");
+const config = require("./config.json");
 
 bot.commands = new Discord.Collection();
 

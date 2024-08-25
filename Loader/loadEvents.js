@@ -1,12 +1,18 @@
 const { executionAsyncRessource } = require("async_hooks");
 const fs = require("fs");
+const messageCreate = require("../Events/messageCreate");
 
-module.exports = async (bot) => {
-  fs.readdirSync("./Events")
-    .filter((f) => f.endsWith(".js"))
-    .forEach(async (file) => {
-      let event = require(`../Events/${file}`);
-      bot.on(file.split(".js").join(""), event.bind(null, bot));
-      console.log(`Evènement ${file} chargé avec succès`);
-    });
+module.exports = (client) => {
+  const eventFiles = fs
+    .readdirSync("./Events")
+    .filter((file) => file.endsWith(".js"));
+
+  for (const file of eventFiles) {
+    const event = require(`../Events/${file}`);
+    if (event.once) {
+      client.once(event.name, (...args) => event.execute(...args, client));
+    } else {
+      client.on(event.name, (...args) => event.execute(...args, client));
+    }
+  }
 };
